@@ -967,7 +967,7 @@ model phpbb_user_notifications {
   @@ignore
 }
 
-model phpbb_users {
+model User {
   user_id                  Int    @id @default(autoincrement()) @db.UnsignedInt
   user_type                Int    @default(0) @db.TinyInt
   group_id                 Int    @default(3) @db.UnsignedMediumInt
@@ -1039,6 +1039,7 @@ model phpbb_users {
   @@index([user_birthday], map: "user_birthday")
   @@index([user_email], map: "user_email")
   @@index([user_type], map: "user_type")
+  @@map("phpbb_users")
 }
 
 model phpbb_warnings {
