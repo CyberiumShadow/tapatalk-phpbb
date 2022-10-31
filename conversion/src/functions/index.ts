@@ -1,3 +1,4 @@
 import mapForums from './forums';
+import mapMembers from './members';
 
-export {mapForums};
+export {mapForums, mapMembers};
