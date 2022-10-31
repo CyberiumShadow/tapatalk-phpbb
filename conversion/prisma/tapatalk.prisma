@@ -1,0 +1,136 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model attachment {
+  id       Int     @id @default(autoincrement())
+  url      String?
+  filename String?
+  post     Int?
+
+  @@ignore
+}
+
+model emoji {
+  id     Int     @id @default(autoincrement())
+  code   String?
+  remote String?
+  local  String?
+
+  @@ignore
+}
+
+model forum {
+  id          Int     @id @default(autoincrement())
+  parent      Int?
+  name        String?
+  description String?
+  order       Int?
+}
+
+model logs {
+  id     Int     @id @default(autoincrement())
+  log    String?
+  member Int?
+  date   Int?
+  ip     String?
+
+  @@ignore
+}
+
+model member {
+  id             Int     @id @default(autoincrement())
+  name           String?
+  password       String?
+  email          String?
+  birthday       Int?
+  number         Int?
+  joined         Int?
+  ip             String?
+  group          String?
+  title          String?
+  warning        Int?
+  pms            Int?
+  ipbans         Int?
+  photoremote    String?
+  photolocal     String?
+  avatarremote   String?
+  avatarlocal    String?
+  interests      String?
+  signaturebb    String?
+  signaturehtml  String?
+  location       String?
+  aol            String?
+  yahoo          String?
+  msn            String?
+  homepage       String?
+  lastactive     Int?
+  hourdifference Float?
+  numposts       Int?
+}
+
+model modlogs {
+  id       Int     @id @default(autoincrement())
+  log      String?
+  member   Int?
+  location String?
+  date     Int?
+  ip       String?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model option {
+  id     Int     @id @default(autoincrement())
+  poll   Int?
+  option String?
+  votes  Int?
+
+  @@ignore
+}
+
+model poll {
+  id       Int     @id @default(autoincrement())
+  question String?
+  options  Int?
+
+  @@ignore
+}
+
+model post {
+  id     Int     @id @default(autoincrement())
+  topic  Int?
+  member Int?
+  guest  String?
+  date   Int?
+  bbcode String?
+  html   String?
+
+  @@index([topic], map: "topic_idx")
+  @@index([member], map: "member_idx")
+  @@index([id], map: "post_idx")
+}
+
+model topic {
+  id          Int     @id @default(autoincrement())
+  forum       Int?
+  poll        Int?
+  name        String?
+  description String?
+  tags        String?
+  views       Int?
+}
+
+model usergroup {
+  id          Int     @id @default(autoincrement())
+  usergroup   Int?
+  name        String?
+  description String?
+  color       String?
+}
