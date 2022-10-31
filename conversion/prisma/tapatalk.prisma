@@ -26,12 +26,14 @@ model emoji {
   @@ignore
 }
 
-model forum {
+model Forum {
   id          Int     @id @default(autoincrement())
   parent      Int?
   name        String?
   description String?
   order       Int?
+
+  @@map("forum")
 }
 
 model logs {
@@ -44,7 +46,7 @@ model logs {
   @@ignore
 }
 
-model member {
+model Member {
   id             Int     @id @default(autoincrement())
   name           String?
   password       String?
@@ -73,6 +75,8 @@ model member {
   lastactive     Int?
   hourdifference Float?
   numposts       Int?
+
+  @@map("member")
 }
 
 model modlogs {
@@ -88,11 +92,12 @@ model modlogs {
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model option {
-  id     Int     @id @default(autoincrement())
-  poll   Int?
+  id     Int
+  poll   Int
   option String?
   votes  Int?
 
+  @@id([id, poll])
   @@ignore
 }
 
@@ -104,7 +109,7 @@ model poll {
   @@ignore
 }
 
-model post {
+model Post {
   id     Int     @id @default(autoincrement())
   topic  Int?
   member Int?
@@ -116,9 +121,10 @@ model post {
   @@index([topic], map: "topic_idx")
   @@index([member], map: "member_idx")
   @@index([id], map: "post_idx")
+  @@map("post")
 }
 
-model topic {
+model Topic {
   id          Int     @id @default(autoincrement())
   forum       Int?
   poll        Int?
@@ -126,12 +132,16 @@ model topic {
   description String?
   tags        String?
   views       Int?
+
+  @@map("topic")
 }
 
-model usergroup {
+model UserGroup {
   id          Int     @id @default(autoincrement())
   usergroup   Int?
   name        String?
   description String?
   color       String?
+
+  @@map("usergroup")
 }

@@ -12,6 +12,7 @@
    },
    "scripts": {
       "start": "ts-node src/index.ts",
-      "typeorm": "typeorm-ts-node-commonjs"
+      "generate:php": "npx prisma generate --schema prisma/phpbb.prisma",
+      "generate:tt": "npx prisma generate --schema prisma/tapatalk.prisma"
    }
 }

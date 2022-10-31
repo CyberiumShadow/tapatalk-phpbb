@@ -28,6 +28,8 @@ model phpbb_acl_options {
   is_global      Int    @default(0) @db.UnsignedTinyInt
   is_local       Int    @default(0) @db.UnsignedTinyInt
   founder_only   Int    @default(0) @db.UnsignedTinyInt
+
+  @@ignore
 }
 
 model phpbb_acl_roles {
@@ -39,6 +41,7 @@ model phpbb_acl_roles {
 
   @@index([role_order], map: "role_order")
   @@index([role_type], map: "role_type")
+  @@ignore
 }
 
 model phpbb_acl_roles_data {
@@ -48,6 +51,7 @@ model phpbb_acl_roles_data {
 
   @@id([role_id, auth_option_id])
   @@index([auth_option_id], map: "ath_op_id")
+  @@ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -86,6 +90,7 @@ model phpbb_attachments {
   @@index([post_msg_id], map: "post_msg_id")
   @@index([poster_id], map: "poster_id")
   @@index([topic_id], map: "topic_id")
+  @@ignore
 }
 
 model phpbb_banlist {
@@ -103,6 +108,7 @@ model phpbb_banlist {
   @@index([ban_end], map: "ban_end")
   @@index([ban_ip, ban_exclude], map: "ban_ip")
   @@index([ban_userid, ban_exclude], map: "ban_user")
+  @@ignore
 }
 
 model phpbb_bbcodes {
@@ -118,6 +124,7 @@ model phpbb_bbcodes {
   second_pass_replace String @db.MediumText
 
   @@index([display_on_posting], map: "display_on_post")
+  @@ignore
 }
 
 model phpbb_bookmarks {
@@ -125,6 +132,7 @@ model phpbb_bookmarks {
   user_id  Int @default(0) @db.UnsignedInt
 
   @@id([topic_id, user_id])
+  @@ignore
 }
 
 model phpbb_bots {
@@ -136,6 +144,7 @@ model phpbb_bots {
   bot_ip     String @default("") @db.VarChar(255)
 
   @@index([bot_active], map: "bot_active")
+  @@ignore
 }
 
 model phpbb_config {
@@ -144,11 +153,13 @@ model phpbb_config {
   is_dynamic   Int    @default(0) @db.UnsignedTinyInt
 
   @@index([is_dynamic], map: "is_dynamic")
+  @@ignore
 }
 
 model phpbb_config_text {
   config_name  String @id @default("") @db.VarChar(255)
   config_value String @db.MediumText
+  @@ignore
 }
 
 model phpbb_confirm {
@@ -161,11 +172,13 @@ model phpbb_confirm {
 
   @@id([session_id, confirm_id])
   @@index([confirm_type], map: "confirm_type")
+  @@ignore
 }
 
 model phpbb_disallow {
   disallow_id       Int    @id @default(autoincrement()) @db.UnsignedMediumInt
   disallow_username String @default("") @db.VarChar(255)
+  @@ignore
 }
 
 model phpbb_drafts {
@@ -178,12 +191,14 @@ model phpbb_drafts {
   draft_message String @db.MediumText
 
   @@index([save_time], map: "save_time")
+  @@ignore
 }
 
 model phpbb_ext {
   ext_name   String @unique(map: "ext_name") @default("") @db.VarChar(255)
   ext_active Int    @default(0) @db.UnsignedTinyInt
   ext_state  String @db.Text
+  @@ignore
 }
 
 model phpbb_extension_groups {
@@ -196,15 +211,17 @@ model phpbb_extension_groups {
   max_filesize   Int    @default(0) @db.UnsignedInt
   allowed_forums String @db.Text
   allow_in_pm    Int    @default(0) @db.UnsignedTinyInt
+  @@ignore
 }
 
 model phpbb_extensions {
   extension_id Int    @id @default(autoincrement()) @db.UnsignedMediumInt
   group_id     Int    @default(0) @db.UnsignedMediumInt
   extension    String @default("") @db.VarChar(100)
+  @@ignore
 }
 
-model phpbb_forums {
+model Forum {
   forum_id                 Int    @id @default(autoincrement()) @db.UnsignedMediumInt
   parent_id                Int    @default(0) @db.UnsignedMediumInt
   left_id                  Int    @default(0) @db.UnsignedMediumInt
@@ -258,6 +275,7 @@ model phpbb_forums {
 
   @@index([forum_last_post_id], map: "forum_lastpost_id")
   @@index([left_id, right_id], map: "left_right_id")
+  @@map("phpbb_forums")
 }
 
 model phpbb_forums_access {
@@ -266,6 +284,7 @@ model phpbb_forums_access {
   session_id String @default("") @db.Char(32)
 
   @@id([forum_id, user_id, session_id])
+  @@ignore
 }
 
 model phpbb_forums_track {
@@ -274,6 +293,7 @@ model phpbb_forums_track {
   mark_time Int @default(0) @db.UnsignedInt
 
   @@id([user_id, forum_id])
+  @@ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -324,6 +344,7 @@ model phpbb_icons {
   display_on_posting Int    @default(1) @db.UnsignedTinyInt
 
   @@index([display_on_posting], map: "display_on_posting")
+  @@ignore
 }
 
 model phpbb_lang {
@@ -335,6 +356,7 @@ model phpbb_lang {
   lang_author       String @default("") @db.VarChar(255)
 
   @@index([lang_iso], map: "lang_iso")
+  @@ignore
 }
 
 model phpbb_log {
@@ -356,6 +378,7 @@ model phpbb_log {
   @@index([reportee_id], map: "reportee_id")
   @@index([topic_id], map: "topic_id")
   @@index([user_id], map: "user_id")
+  @@ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -383,6 +406,7 @@ model phpbb_migrations {
   migration_data_state  String @db.Text
   migration_start_time  Int    @default(0) @db.UnsignedInt
   migration_end_time    Int    @default(0) @db.UnsignedInt
+  @@ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -415,6 +439,7 @@ model phpbb_modules {
   @@index([module_class, left_id], map: "class_left_id")
   @@index([left_id, right_id], map: "left_right_id")
   @@index([module_enabled], map: "module_enabled")
+  @@ignore
 }
 
 model phpbb_notification_emails {
@@ -424,12 +449,14 @@ model phpbb_notification_emails {
   user_id              Int @default(0) @db.UnsignedInt
 
   @@id([notification_type_id, item_id, item_parent_id, user_id])
+  @@ignore
 }
 
 model phpbb_notification_types {
   notification_type_id      Int    @id @default(autoincrement()) @db.UnsignedSmallInt
   notification_type_name    String @unique(map: "type") @default("") @db.VarChar(255)
   notification_type_enabled Int    @default(1) @db.UnsignedTinyInt
+  @@ignore
 }
 
 model phpbb_notifications {
@@ -444,6 +471,7 @@ model phpbb_notifications {
 
   @@index([notification_type_id, item_id], map: "item_ident")
   @@index([user_id, notification_read], map: "user")
+  @@ignore
 }
 
 model phpbb_oauth_accounts {
@@ -452,6 +480,7 @@ model phpbb_oauth_accounts {
   oauth_provider_id String @db.Text
 
   @@id([user_id, provider])
+  @@ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -571,6 +600,7 @@ model phpbb_privmsgs {
   @@index([author_ip], map: "author_ip")
   @@index([message_time], map: "message_time")
   @@index([root_level], map: "root_level")
+  @@ignore
 }
 
 model phpbb_privmsgs_folder {
@@ -580,6 +610,7 @@ model phpbb_privmsgs_folder {
   pm_count    Int    @default(0) @db.UnsignedMediumInt
 
   @@index([user_id], map: "user_id")
+  @@ignore
 }
 
 model phpbb_privmsgs_rules {
@@ -594,6 +625,7 @@ model phpbb_privmsgs_rules {
   rule_folder_id  Int    @default(0)
 
   @@index([user_id], map: "user_id")
+  @@ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -643,6 +675,7 @@ model phpbb_profile_fields {
 
   @@index([field_order], map: "fld_ordr")
   @@index([field_type], map: "fld_type")
+  @@ignore
 }
 
 model phpbb_profile_fields_data {
@@ -657,6 +690,7 @@ model phpbb_profile_fields_data {
   pf_phpbb_website    String @default("") @db.VarChar(255)
   pf_phpbb_youtube    String @default("") @db.VarChar(255)
   pf_phpbb_yahoo      String @default("") @db.VarChar(255)
+  @@ignore
 }
 
 model phpbb_profile_fields_lang {
@@ -667,6 +701,7 @@ model phpbb_profile_fields_lang {
   lang_value String @default("") @db.VarChar(255)
 
   @@id([field_id, lang_id, option_id])
+  @@ignore
 }
 
 model phpbb_profile_lang {
@@ -677,6 +712,7 @@ model phpbb_profile_lang {
   lang_default_value String @default("") @db.VarChar(255)
 
   @@id([field_id, lang_id])
+  @@ignore
 }
 
 model phpbb_ranks {
@@ -685,6 +721,7 @@ model phpbb_ranks {
   rank_min     Int    @default(0) @db.UnsignedMediumInt
   rank_special Int    @default(0) @db.UnsignedTinyInt
   rank_image   String @default("") @db.VarChar(255)
+  @@ignore
 }
 
 model phpbb_reports {
@@ -706,6 +743,7 @@ model phpbb_reports {
 
   @@index([pm_id], map: "pm_id")
   @@index([post_id], map: "post_id")
+  @@ignore
 }
 
 model phpbb_reports_reasons {
@@ -713,6 +751,7 @@ model phpbb_reports_reasons {
   reason_title       String @default("") @db.VarChar(255)
   reason_description String @db.MediumText
   reason_order       Int    @default(0) @db.UnsignedSmallInt
+  @@ignore
 }
 
 model phpbb_search_results {
@@ -720,6 +759,7 @@ model phpbb_search_results {
   search_time     Int    @default(0) @db.UnsignedInt
   search_keywords String @db.MediumText
   search_authors  String @db.MediumText
+  @@ignore
 }
 
 model phpbb_search_wordlist {
@@ -729,6 +769,7 @@ model phpbb_search_wordlist {
   word_count  Int    @default(0) @db.UnsignedMediumInt
 
   @@index([word_count], map: "wrd_cnt")
+  @@ignore
 }
 
 model phpbb_search_wordmatch {
@@ -739,6 +780,7 @@ model phpbb_search_wordmatch {
   @@unique([word_id, post_id, title_match], map: "un_mtch")
   @@index([post_id], map: "post_id")
   @@index([word_id], map: "word_id")
+  @@ignore
 }
 
 model phpbb_sessions {
@@ -759,6 +801,7 @@ model phpbb_sessions {
   @@index([session_forum_id], map: "session_fid")
   @@index([session_time], map: "session_time")
   @@index([session_user_id], map: "session_user_id")
+  @@ignore
 }
 
 model phpbb_sessions_keys {
@@ -769,6 +812,7 @@ model phpbb_sessions_keys {
 
   @@id([key_id, user_id])
   @@index([last_login], map: "last_login")
+  @@ignore
 }
 
 model phpbb_sitelist {
@@ -776,6 +820,7 @@ model phpbb_sitelist {
   site_ip       String @default("") @db.VarChar(40)
   site_hostname String @default("") @db.VarChar(255)
   ip_exclude    Int    @default(0) @db.UnsignedTinyInt
+  @@ignore
 }
 
 model phpbb_smilies {
@@ -789,6 +834,7 @@ model phpbb_smilies {
   display_on_posting Int    @default(1) @db.UnsignedTinyInt
 
   @@index([display_on_posting], map: "display_on_post")
+  @@ignore
 }
 
 model phpbb_styles {
@@ -800,6 +846,7 @@ model phpbb_styles {
   bbcode_bitfield   String @default("kNg=") @db.VarChar(255)
   style_parent_id   Int    @default(0) @db.UnsignedInt
   style_parent_tree String @db.Text
+  @@ignore
 }
 
 model phpbb_teampage {
@@ -808,6 +855,7 @@ model phpbb_teampage {
   teampage_name     String @default("") @db.VarChar(255)
   teampage_position Int    @default(0) @db.UnsignedMediumInt
   teampage_parent   Int    @default(0) @db.UnsignedMediumInt
+  @@ignore
 }
 
 model phpbb_topics {
@@ -865,6 +913,7 @@ model phpbb_topics_posted {
   topic_posted Int @default(0) @db.UnsignedTinyInt
 
   @@id([user_id, topic_id])
+  @@ignore
 }
 
 model phpbb_topics_track {
@@ -876,6 +925,7 @@ model phpbb_topics_track {
   @@id([user_id, topic_id])
   @@index([forum_id], map: "forum_id")
   @@index([topic_id], map: "topic_id")
+  @@ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -914,6 +964,7 @@ model phpbb_user_notifications {
   @@index([user_id, item_id], map: "uid_itm_id")
   @@index([user_id], map: "user_id")
   @@index([user_id, item_type, item_id], map: "usr_itm_tpe")
+  @@ignore
 }
 
 model phpbb_users {
@@ -996,12 +1047,14 @@ model phpbb_warnings {
   post_id      Int @default(0) @db.UnsignedInt
   log_id       Int @default(0) @db.UnsignedInt
   warning_time Int @default(0) @db.UnsignedInt
+  @@ignore
 }
 
 model phpbb_words {
   word_id     Int    @id @default(autoincrement()) @db.UnsignedInt
   word        String @default("") @db.VarChar(255)
   replacement String @default("") @db.VarChar(255)
+  @@ignore
 }
 
 model phpbb_zebra {
@@ -1011,4 +1064,5 @@ model phpbb_zebra {
   foe      Int @default(0) @db.UnsignedTinyInt
 
   @@id([user_id, zebra_id])
+  @@ignore
 }
