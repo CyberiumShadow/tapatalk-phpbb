@@ -1,4 +1,6 @@
-import {mapForums, mapMembers} from './functions'
+import {mapForums, mapMembers, mapTopics, mapPosts} from './functions'
 
-//mapForums();
+mapForums();
 mapMembers();
+mapTopics();
+mapPosts();

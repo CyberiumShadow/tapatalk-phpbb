@@ -532,7 +532,7 @@ model phpbb_poll_votes {
   @@ignore
 }
 
-model phpbb_posts {
+model Post {
   post_id            Int    @id @default(autoincrement()) @db.UnsignedInt
   topic_id           Int    @default(0) @db.UnsignedInt
   forum_id           Int    @default(0) @db.UnsignedMediumInt
@@ -570,6 +570,7 @@ model phpbb_posts {
   @@index([poster_ip], map: "poster_ip")
   @@index([topic_id, post_time], map: "tid_post_time")
   @@index([topic_id], map: "topic_id")
+  @@map("phpbb_posts")
 }
 
 model phpbb_privmsgs {
@@ -858,7 +859,7 @@ model phpbb_teampage {
   @@ignore
 }
 
-model phpbb_topics {
+model Topic {
   topic_id                  Int    @id @default(autoincrement()) @db.UnsignedInt
   forum_id                  Int    @default(0) @db.UnsignedMediumInt
   icon_id                   Int    @default(0) @db.UnsignedMediumInt
@@ -905,6 +906,7 @@ model phpbb_topics {
   @@index([topic_last_post_time], map: "last_post_time")
   @@index([forum_id, topic_last_post_time, topic_last_post_id, topic_moved_id], map: "latest_topics")
   @@index([topic_visibility], map: "topic_visibility")
+  @@map("phpbb_topics")
 }
 
 model phpbb_topics_posted {
