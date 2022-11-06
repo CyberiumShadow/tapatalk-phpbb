@@ -12,7 +12,7 @@ model Forum {
   forum_id   Int    @id @default(autoincrement()) @db.UnsignedMediumInt
   parent_id  Int    @default(0) @db.UnsignedMediumInt
   forum_name String @default("") @db.VarChar(255)
-  forum_desc String @default("") @db.Text
+  forum_desc String @db.Text
 
   @@map("phpbb_forums")
 }
