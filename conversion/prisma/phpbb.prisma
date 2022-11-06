@@ -11,123 +11,29 @@ datasource db {
 model Forum {
   forum_id                 Int    @id @default(autoincrement()) @db.UnsignedMediumInt
   parent_id                Int    @default(0) @db.UnsignedMediumInt
-  left_id                  Int    @default(0) @db.UnsignedMediumInt
-  right_id                 Int    @default(0) @db.UnsignedMediumInt
-  forum_parents            String @db.MediumText
   forum_name               String @default("") @db.VarChar(255)
   forum_desc               String @db.Text
-  forum_desc_bitfield      String @default("") @db.VarChar(255)
-  forum_desc_options       Int    @default(7) @db.UnsignedInt
-  forum_desc_uid           String @default("") @db.VarChar(8)
-  forum_link               String @default("") @db.VarChar(255)
-  forum_password           String @default("") @db.VarChar(255)
-  forum_style              Int    @default(0) @db.UnsignedMediumInt
-  forum_image              String @default("") @db.VarChar(255)
-  forum_rules              String @db.Text
-  forum_rules_link         String @default("") @db.VarChar(255)
-  forum_rules_bitfield     String @default("") @db.VarChar(255)
-  forum_rules_options      Int    @default(7) @db.UnsignedInt
-  forum_rules_uid          String @default("") @db.VarChar(8)
-  forum_topics_per_page    Int    @default(0) @db.UnsignedSmallInt
-  forum_type               Int    @default(0) @db.TinyInt
-  forum_status             Int    @default(0) @db.TinyInt
-  forum_last_post_id       Int    @default(0) @db.UnsignedInt
-  forum_last_poster_id     Int    @default(0) @db.UnsignedInt
-  forum_last_post_subject  String @default("") @db.VarChar(255)
-  forum_last_post_time     Int    @default(0) @db.UnsignedInt
-  forum_last_poster_name   String @default("") @db.VarChar(255)
-  forum_last_poster_colour String @default("") @db.VarChar(6)
-  forum_flags              Int    @default(32) @db.TinyInt
-  display_on_index         Int    @default(1) @db.UnsignedTinyInt
-  enable_indexing          Int    @default(1) @db.UnsignedTinyInt
-  enable_icons             Int    @default(1) @db.UnsignedTinyInt
-  enable_prune             Int    @default(0) @db.UnsignedTinyInt
-  prune_next               Int    @default(0) @db.UnsignedInt
-  prune_days               Int    @default(0) @db.UnsignedMediumInt
-  prune_viewed             Int    @default(0) @db.UnsignedMediumInt
-  prune_freq               Int    @default(0) @db.UnsignedMediumInt
-  display_subforum_list    Int    @default(1) @db.UnsignedTinyInt
-  display_subforum_limit   Int    @default(0) @db.UnsignedTinyInt
-  forum_options            Int    @default(0) @db.UnsignedInt
-  enable_shadow_prune      Int    @default(0) @db.UnsignedTinyInt
-  prune_shadow_days        Int    @default(7) @db.UnsignedMediumInt
-  prune_shadow_freq        Int    @default(1) @db.UnsignedMediumInt
-  prune_shadow_next        Int    @default(0)
-  forum_posts_approved     Int    @default(0) @db.UnsignedMediumInt
-  forum_posts_unapproved   Int    @default(0) @db.UnsignedMediumInt
-  forum_posts_softdeleted  Int    @default(0) @db.UnsignedMediumInt
-  forum_topics_approved    Int    @default(0) @db.UnsignedMediumInt
-  forum_topics_unapproved  Int    @default(0) @db.UnsignedMediumInt
-  forum_topics_softdeleted Int    @default(0) @db.UnsignedMediumInt
 
-  @@index([forum_last_post_id], map: "forum_lastpost_id")
-  @@index([left_id, right_id], map: "left_right_id")
   @@map("phpbb_forums")
 }
 
 model Group {
   group_id             Int    @id @default(autoincrement()) @db.UnsignedMediumInt
-  group_type           Int    @default(1) @db.TinyInt
-  group_founder_manage Int    @default(0) @db.UnsignedTinyInt
-  group_skip_auth      Int    @default(0) @db.UnsignedTinyInt
   group_name           String @default("") @db.VarChar(255)
   group_desc           String @db.Text
-  group_desc_bitfield  String @default("") @db.VarChar(255)
-  group_desc_options   Int    @default(7) @db.UnsignedInt
-  group_desc_uid       String @default("") @db.VarChar(8)
-  group_display        Int    @default(0) @db.UnsignedTinyInt
-  group_avatar         String @default("") @db.VarChar(255)
-  group_avatar_type    String @default("") @db.VarChar(255)
-  group_avatar_width   Int    @default(0) @db.UnsignedSmallInt
-  group_avatar_height  Int    @default(0) @db.UnsignedSmallInt
-  group_rank           Int    @default(0) @db.UnsignedMediumInt
   group_colour         String @default("") @db.VarChar(6)
-  group_sig_chars      Int    @default(0) @db.UnsignedMediumInt
-  group_receive_pm     Int    @default(0) @db.UnsignedTinyInt
-  group_message_limit  Int    @default(0) @db.UnsignedMediumInt
-  group_legend         Int    @default(0) @db.UnsignedMediumInt
-  group_max_recipients Int    @default(0) @db.UnsignedMediumInt
 
-  @@index([group_legend, group_name], map: "group_legend_name")
   @@map("phpbb_groups")
 }
 
 model Post {
   post_id            Int    @id @default(autoincrement()) @db.UnsignedInt
   topic_id           Int    @default(0) @db.UnsignedInt
-  forum_id           Int    @default(0) @db.UnsignedMediumInt
   poster_id          Int    @default(0) @db.UnsignedInt
-  icon_id            Int    @default(0) @db.UnsignedMediumInt
-  poster_ip          String @default("") @db.VarChar(40)
   post_time          Int    @default(0) @db.UnsignedInt
-  post_reported      Int    @default(0) @db.UnsignedTinyInt
-  enable_bbcode      Int    @default(1) @db.UnsignedTinyInt
-  enable_smilies     Int    @default(1) @db.UnsignedTinyInt
-  enable_magic_url   Int    @default(1) @db.UnsignedTinyInt
-  enable_sig         Int    @default(1) @db.UnsignedTinyInt
-  post_username      String @default("") @db.VarChar(255)
-  post_subject       String @default("") @db.VarChar(255)
   post_text          String @db.MediumText
-  post_checksum      String @default("") @db.VarChar(32)
-  post_attachment    Int    @default(0) @db.UnsignedTinyInt
-  bbcode_bitfield    String @default("") @db.VarChar(255)
-  bbcode_uid         String @default("") @db.VarChar(8)
-  post_postcount     Int    @default(1) @db.UnsignedTinyInt
-  post_edit_time     Int    @default(0) @db.UnsignedInt
-  post_edit_reason   String @default("") @db.VarChar(255)
-  post_edit_user     Int    @default(0) @db.UnsignedInt
-  post_edit_count    Int    @default(0) @db.UnsignedSmallInt
-  post_edit_locked   Int    @default(0) @db.UnsignedTinyInt
-  post_visibility    Int    @default(0) @db.TinyInt
-  post_delete_time   Int    @default(0) @db.UnsignedInt
-  post_delete_reason String @default("") @db.VarChar(255)
-  post_delete_user   Int    @default(0) @db.UnsignedInt
 
-  @@index([forum_id], map: "forum_id")
-  @@index([post_username], map: "post_username")
-  @@index([post_visibility], map: "post_visibility")
   @@index([poster_id], map: "poster_id")
-  @@index([poster_ip], map: "poster_ip")
   @@index([topic_id, post_time], map: "tid_post_time")
   @@index([topic_id], map: "topic_id")
   @@map("phpbb_posts")
@@ -135,32 +41,13 @@ model Post {
 
 model PrivMsg {
   msg_id              Int    @id @default(autoincrement()) @db.UnsignedInt
-  root_level          Int    @default(0) @db.UnsignedMediumInt
   author_id           Int    @default(0) @db.UnsignedInt
-  icon_id             Int    @default(0) @db.UnsignedMediumInt
-  author_ip           String @default("") @db.VarChar(40)
   message_time        Int    @default(0) @db.UnsignedInt
-  enable_bbcode       Int    @default(1) @db.UnsignedTinyInt
-  enable_smilies      Int    @default(1) @db.UnsignedTinyInt
-  enable_magic_url    Int    @default(1) @db.UnsignedTinyInt
-  enable_sig          Int    @default(1) @db.UnsignedTinyInt
-  message_subject     String @default("") @db.VarChar(255)
   message_text        String @db.MediumText
-  message_edit_reason String @default("") @db.VarChar(255)
-  message_edit_user   Int    @default(0) @db.UnsignedInt
-  message_attachment  Int    @default(0) @db.UnsignedTinyInt
-  bbcode_bitfield     String @default("") @db.VarChar(255)
-  bbcode_uid          String @default("") @db.VarChar(8)
-  message_edit_time   Int    @default(0) @db.UnsignedInt
-  message_edit_count  Int    @default(0) @db.UnsignedSmallInt
   to_address          String @db.Text
-  bcc_address         String @db.Text
-  message_reported    Int    @default(0) @db.UnsignedTinyInt
 
   @@index([author_id], map: "author_id")
-  @@index([author_ip], map: "author_ip")
   @@index([message_time], map: "message_time")
-  @@index([root_level], map: "root_level")
   @@ignore
   @@map("phpbb_privmsgs")
 }
@@ -168,50 +55,12 @@ model PrivMsg {
 model Topic {
   topic_id                  Int    @id @default(autoincrement()) @db.UnsignedInt
   forum_id                  Int    @default(0) @db.UnsignedMediumInt
-  icon_id                   Int    @default(0) @db.UnsignedMediumInt
-  topic_attachment          Int    @default(0) @db.UnsignedTinyInt
-  topic_reported            Int    @default(0) @db.UnsignedTinyInt
   topic_title               String @default("") @db.VarChar(255)
   topic_poster              Int    @default(0) @db.UnsignedInt
   topic_time                Int    @default(0) @db.UnsignedInt
-  topic_time_limit          Int    @default(0) @db.UnsignedInt
   topic_views               Int    @default(0) @db.UnsignedMediumInt
-  topic_status              Int    @default(0) @db.TinyInt
-  topic_type                Int    @default(0) @db.TinyInt
-  topic_first_post_id       Int    @default(0) @db.UnsignedInt
-  topic_first_poster_name   String @default("") @db.VarChar(255)
-  topic_first_poster_colour String @default("") @db.VarChar(6)
-  topic_last_post_id        Int    @default(0) @db.UnsignedInt
-  topic_last_poster_id      Int    @default(0) @db.UnsignedInt
-  topic_last_poster_name    String @default("") @db.VarChar(255)
-  topic_last_poster_colour  String @default("") @db.VarChar(6)
-  topic_last_post_subject   String @default("") @db.VarChar(255)
-  topic_last_post_time      Int    @default(0) @db.UnsignedInt
-  topic_last_view_time      Int    @default(0) @db.UnsignedInt
-  topic_moved_id            Int    @default(0) @db.UnsignedInt
-  topic_bumped              Int    @default(0) @db.UnsignedTinyInt
-  topic_bumper              Int    @default(0) @db.UnsignedMediumInt
-  poll_title                String @default("") @db.VarChar(255)
-  poll_start                Int    @default(0) @db.UnsignedInt
-  poll_length               Int    @default(0) @db.UnsignedInt
-  poll_max_options          Int    @default(1) @db.TinyInt
-  poll_last_vote            Int    @default(0) @db.UnsignedInt
-  poll_vote_change          Int    @default(0) @db.UnsignedTinyInt
-  topic_visibility          Int    @default(0) @db.TinyInt
-  topic_delete_time         Int    @default(0) @db.UnsignedInt
-  topic_delete_reason       String @default("") @db.VarChar(255)
-  topic_delete_user         Int    @default(0) @db.UnsignedInt
-  topic_posts_approved      Int    @default(0) @db.UnsignedMediumInt
-  topic_posts_unapproved    Int    @default(0) @db.UnsignedMediumInt
-  topic_posts_softdeleted   Int    @default(0) @db.UnsignedMediumInt
 
-  @@index([forum_id, topic_last_post_time, topic_moved_id], map: "fid_time_moved")
   @@index([forum_id], map: "forum_id")
-  @@index([forum_id, topic_type], map: "forum_id_type")
-  @@index([forum_id, topic_visibility, topic_last_post_id], map: "forum_vis_last")
-  @@index([topic_last_post_time], map: "last_post_time")
-  @@index([forum_id, topic_last_post_time, topic_last_post_id, topic_moved_id], map: "latest_topics")
-  @@index([topic_visibility], map: "topic_visibility")
   @@map("phpbb_topics")
 }
 
@@ -232,73 +81,31 @@ model User {
   user_id                  Int    @id @default(autoincrement()) @db.UnsignedInt
   user_type                Int    @default(0) @db.TinyInt
   group_id                 Int    @default(3) @db.UnsignedMediumInt
-  user_permissions         String @db.MediumText
-  user_perm_from           Int    @default(0) @db.UnsignedMediumInt
   user_ip                  String @default("") @db.VarChar(40)
   user_regdate             Int    @default(0) @db.UnsignedInt
   username                 String @default("") @db.VarChar(255)
-  username_clean           String @unique(map: "username_clean") @default("") @db.VarChar(255)
-  user_password            String @default("") @db.VarChar(255)
-  user_passchg             Int    @default(0) @db.UnsignedInt
   user_email               String @default("") @db.VarChar(100)
   user_birthday            String @default("") @db.VarChar(10)
   user_lastvisit           Int    @default(0) @db.UnsignedInt
-  user_lastmark            Int    @default(0) @db.UnsignedInt
-  user_lastpost_time       Int    @default(0) @db.UnsignedInt
-  user_lastpage            String @default("") @db.VarChar(200)
-  user_last_confirm_key    String @default("") @db.VarChar(10)
-  user_last_search         Int    @default(0) @db.UnsignedInt
-  user_warnings            Int    @default(0) @db.TinyInt
-  user_last_warning        Int    @default(0) @db.UnsignedInt
-  user_login_attempts      Int    @default(0) @db.TinyInt
   user_inactive_reason     Int    @default(0) @db.TinyInt
-  user_inactive_time       Int    @default(0) @db.UnsignedInt
   user_posts               Int    @default(0) @db.UnsignedMediumInt
-  user_lang                String @default("") @db.VarChar(30)
-  user_timezone            String @default("") @db.VarChar(100)
-  user_dateformat          String @default("d M Y H:i") @db.VarChar(64)
-  user_style               Int    @default(0) @db.UnsignedMediumInt
-  user_rank                Int    @default(0) @db.UnsignedMediumInt
-  user_colour              String @default("") @db.VarChar(6)
-  user_new_privmsg         Int    @default(0)
-  user_unread_privmsg      Int    @default(0)
-  user_last_privmsg        Int    @default(0) @db.UnsignedInt
-  user_message_rules       Int    @default(0) @db.UnsignedTinyInt
-  user_full_folder         Int    @default(-3)
-  user_emailtime           Int    @default(0) @db.UnsignedInt
-  user_topic_show_days     Int    @default(0) @db.UnsignedSmallInt
-  user_topic_sortby_type   String @default("t") @db.VarChar(1)
-  user_topic_sortby_dir    String @default("d") @db.VarChar(1)
-  user_post_show_days      Int    @default(0) @db.UnsignedSmallInt
-  user_post_sortby_type    String @default("t") @db.VarChar(1)
-  user_post_sortby_dir     String @default("a") @db.VarChar(1)
-  user_notify              Int    @default(0) @db.UnsignedTinyInt
-  user_notify_pm           Int    @default(1) @db.UnsignedTinyInt
-  user_notify_type         Int    @default(0) @db.TinyInt
-  user_allow_pm            Int    @default(1) @db.UnsignedTinyInt
-  user_allow_viewonline    Int    @default(1) @db.UnsignedTinyInt
-  user_allow_viewemail     Int    @default(1) @db.UnsignedTinyInt
-  user_allow_massemail     Int    @default(1) @db.UnsignedTinyInt
-  user_options             Int    @default(230271) @db.UnsignedInt
   user_avatar              String @default("") @db.VarChar(255)
   user_avatar_type         String @default("") @db.VarChar(255)
-  user_avatar_width        Int    @default(0) @db.UnsignedSmallInt
-  user_avatar_height       Int    @default(0) @db.UnsignedSmallInt
-  user_sig                 String @db.MediumText
-  user_sig_bbcode_uid      String @default("") @db.VarChar(8)
-  user_sig_bbcode_bitfield String @default("") @db.VarChar(255)
-  user_jabber              String @default("") @db.VarChar(255)
-  user_actkey              String @default("") @db.VarChar(32)
-  reset_token              String @default("") @db.VarChar(64)
-  reset_token_expiration   Int    @default(0) @db.UnsignedInt
-  user_newpasswd           String @default("") @db.VarChar(255)
-  user_form_salt           String @default("") @db.VarChar(32)
-  user_new                 Int    @default(1) @db.UnsignedTinyInt
-  user_reminded            Int    @default(0) @db.TinyInt
-  user_reminded_time       Int    @default(0) @db.UnsignedInt
 
   @@index([user_birthday], map: "user_birthday")
   @@index([user_email], map: "user_email")
   @@index([user_type], map: "user_type")
   @@map("phpbb_users")
+}
+
+model phpbb_banlist {
+  ban_id          Int    @id @default(autoincrement()) @db.UnsignedInt
+  ban_userid      Int    @default(0) @db.UnsignedInt
+  ban_start       Int    @default(0) @db.UnsignedInt
+  ban_end         Int    @default(0) @db.UnsignedInt
+  ban_exclude     Int    @default(0) @db.UnsignedTinyInt
+  ban_reason      String @default("") @db.VarChar(255)
+  @@index([ban_end], map: "ban_end")
+  @@index([ban_userid, ban_exclude], map: "ban_user")
+  @@ignore
 }
