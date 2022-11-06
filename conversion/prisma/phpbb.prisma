@@ -21,7 +21,7 @@ model Group {
   group_id     Int    @id @default(autoincrement()) @db.UnsignedMediumInt
   group_name   String @default("") @db.VarChar(255)
   group_desc   String @db.Text
-  group_colour String @default("") @db.VarChar(6)
+  group_colour String @default("") @db.VarChar(10)
 
   @@map("phpbb_groups")
 }
