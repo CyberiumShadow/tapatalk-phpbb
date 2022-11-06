@@ -20,7 +20,7 @@ model Forum {
 model Group {
   group_id     Int    @id @default(autoincrement()) @db.UnsignedMediumInt
   group_name   String @default("") @db.VarChar(255)
-  group_desc   String @default("") @db.Text
+  group_desc   String @db.Text
   group_colour String @default("") @db.VarChar(6)
 
   @@map("phpbb_groups")
