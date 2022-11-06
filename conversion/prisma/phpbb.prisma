@@ -65,7 +65,7 @@ model Topic {
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model phpbb_user_group {
+model UserGroup {
   group_id     Int @default(0) @db.UnsignedMediumInt
   user_id      Int @default(0) @db.UnsignedInt
   group_leader Int @default(0) @db.UnsignedTinyInt
@@ -74,7 +74,8 @@ model phpbb_user_group {
   @@index([group_id], map: "group_id")
   @@index([group_leader], map: "group_leader")
   @@index([user_id], map: "user_id")
-  @@ignore
+  @@id([group_id, user_id])
+  @@map("phpbb_user_group")
 }
 
 model User {
