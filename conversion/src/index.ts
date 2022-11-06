@@ -1,6 +1,10 @@
 import {mapForums, mapMembers, mapTopics, mapPosts} from './functions'
 
-mapForums();
-mapMembers();
-mapTopics();
-mapPosts();
+async function main () {
+    await mapForums();
+    await mapMembers();
+    await mapTopics();
+    await mapPosts();
+}
+
+main()
