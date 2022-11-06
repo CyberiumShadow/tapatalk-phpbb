@@ -18,7 +18,7 @@ export default async function mapMembers() {
                 user_avatar: member.avatarremote || '',
                 user_avatar_type: member.avatarremote ? 1 : 0,
                 user_ip: member.ip || '',
-                group_id: Number(member_group[member_group.length - 1])
+                group_id: member_group.length > 0 ? Number(member_group[member_group.length - 1]) : 1
             }
         })
         for (const groupidx in member_group) {
