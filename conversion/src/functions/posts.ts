@@ -14,7 +14,6 @@ export default async function mapTopics() {
                 topic_id: post.topic || undefined,
                 post_time: post.date || undefined,
                 post_text: post.bbcode || '',
-                post_username: post.guest || '',
                 poster_id: post.member || undefined
             }
         })

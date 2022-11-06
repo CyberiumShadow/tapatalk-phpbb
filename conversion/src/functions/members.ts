@@ -11,13 +11,12 @@ export default async function mapMembers() {
         await phpbbClient.user.create({
             data: {
                 user_id: member.id,
-                username: member.name || undefined,
-                username_clean: member.name || '',
+                username: member.name,
                 user_posts: member.numposts || 0,
-                user_permissions: '',
-                user_sig: '',
                 user_regdate: member.joined || undefined,
-                user_avatar: member.avatarremote || ''
+                user_avatar: member.avatarremote || '',
+                user_avatar_type: member.avatarremote ? 1 : 0,
+                user_ip: member.ip || ''
             }
         })
     }

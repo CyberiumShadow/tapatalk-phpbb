@@ -10,7 +10,10 @@ export default async function mapGroups() {
         console.log(`ID: ${group.id} | Name: ${group.name}`)
         await phpbbClient.group.create({
             data: {
-                
+                group_id: group.id,
+                group_name: group.name || "",
+                group_desc: group.description || "",
+                group_colour: group.color || ""
             }
         })
     }

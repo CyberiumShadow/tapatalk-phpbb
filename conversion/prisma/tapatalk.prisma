@@ -48,7 +48,7 @@ model logs {
 
 model Member {
   id             Int     @id @default(autoincrement())
-  name           String?
+  name           String
   password       String?
   email          String?
   birthday       Int?

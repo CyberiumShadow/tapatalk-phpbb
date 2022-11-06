@@ -13,9 +13,7 @@ export default async function mapForums() {
                 forum_id: forum.id,
                 forum_name: forum.name || undefined,
                 forum_desc: forum.description || "",
-                parent_id: forum.parent || undefined,
-                forum_parents: "",
-                forum_rules: ""
+                parent_id: forum.parent || undefined
             }
         })
     }
