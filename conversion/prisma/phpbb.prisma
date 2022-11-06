@@ -83,7 +83,7 @@ model User {
   group_id             Int    @default(3) @db.UnsignedMediumInt
   user_ip              String @default("") @db.VarChar(40)
   user_regdate         Int    @default(0) @db.Int
-  username             String @db.VarChar(25)
+  username             String @db.VarChar(255)
   user_email           String @default("") @db.VarChar(100)
   user_birthday        String @default("") @db.VarChar(10)
   user_lastvisit       Int    @default(0) @db.UnsignedInt
